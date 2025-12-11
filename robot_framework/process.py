@@ -101,12 +101,12 @@ def process(orchestrator_connection: OrchestratorConnection, queue_element: Queu
         cursor.execute(query)
         to_process = cursor.fetchall()
 
-        orchestrator_connection.log_error(f"Found {len(to_process)} row(s) to process.")
+        orchestrator_connection.log_info(f"Found {len(to_process)} row(s) to process.")
 
         caseworker_cache: dict[str, dict | None] = {}
 
         for row_id, sagsnr, oldazident, newazident in to_process:
-            orchestrator_connection.log_error(f"\nProcessing {sagsnr}: {oldazident} ➝ {newazident}")
+            orchestrator_connection.log_info(f"\nProcessing {sagsnr}: {oldazident} ➝ {newazident}")
 
             # Default row fields to update
             updates: dict[str, object] = {
@@ -252,7 +252,7 @@ def process(orchestrator_connection: OrchestratorConnection, queue_element: Queu
             )
 
         conn.commit()
-        orchestrator_connection.log_error("\nDone.")
+        orchestrator_connection.log_info("\nDone.")
 
 
     conn = connect_db()
