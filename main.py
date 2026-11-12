@@ -11,4 +11,5 @@ os.chdir(script_directory)
 
 subprocess.run("pip install --upgrade uv", check=True)
 command_args = ["uv", "run", "python", "-m", "robot_framework"] + sys.argv[1:]
-subprocess.run(command_args, check=True)
+result = subprocess.run(command_args, check=False)
+sys.exit(result.returncode)
